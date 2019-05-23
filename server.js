@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 
 app.use(express.json())
-app.use(express.urlencoded({exxtended:true}))
+app.use(express.urlencoded({extended:true}))
 
 const userRoute = require('./routes/user')
 const adminRoute = require('./routes/admin')
