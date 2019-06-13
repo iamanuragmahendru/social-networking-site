@@ -27,4 +27,4 @@ app.use('/public', express.static('public'))
 app.use('/', indexRoute)
 
 // To start the server and listen at the  given port
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Social app listening on port ${port}! http://localhost:3000`))
