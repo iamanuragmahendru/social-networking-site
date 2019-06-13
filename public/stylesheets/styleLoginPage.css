@@ -1,0 +1,19 @@
+#tabs li {
+    list-style: none;
+    display: inline-block;
+    background: #ACF;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  #container>div {
+    width: 300px;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #000;
+    display: none;
+  }
+  
+  #container>div.active {
+    display: block;
+  }

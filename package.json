@@ -18,7 +18,8 @@
   "homepage": "https://github.com/iamanuragmahendru/social-networking-site#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "hbs": "^4.0.4",
-    "mysql2": "^1.6.5"
+    "express-handlebars": "^3.1.0",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.8.9"
   }
 }
