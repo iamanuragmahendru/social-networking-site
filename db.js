@@ -12,6 +12,8 @@ const sequelize = new Sequelize('socialdb', 'socialadmin', 'facebook', {
   }
 });
 
+//Defining User model
+
 const User = sequelize.define('user', {
   uid: {
     type: Sequelize.INTEGER,
@@ -61,10 +63,13 @@ const User = sequelize.define('user', {
   }
 });
 
+// Creating an Instance Method in sequelize version > 4
+
 User.prototype.validPassword =function(password) {
   return bcrypt.compareSync(password, this.password);
 }
 
+// Synchronize the database
 
 sequelize.sync()
   .then(() => console.log("Database created"))

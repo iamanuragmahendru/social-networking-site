@@ -30,45 +30,9 @@ route.post('/signup', (req, res) => {
   })
 })
 
-/* route.post('/signup', (req, res) => {
-  User.create({
-    name: req.body.name,
-    email: req.body.email,
-    username: req.body.username,
-    password: req.body.password,
-  })
-  .then((user) => {
-    res.send("User created")
-  })
-  .catch((err) => {
-    console.log(err)
-    res.send("Could not add new user")
-  })
-})
- */
-/* route.post('/login', (req, res) => {
-  let pass= req.body.password
-  User.findOne({
-    where: {username: req.body.username}
-  })
-  .then((user) => {
-    if (!user) {
-        res.send('No such user');
-    } else if (!user.validPassword(pass)) {
-        res.send('Wrong Password');
-    } else {
-        //req.session.user = user.dataValues;
-        res.send('hello' + user.firstName);
-    }
-  })
-  .catch((err) => {
-    console.log(err)
-    res.status.send("Not able to retrieve user")
-  })
-}) */
-
 route.post('/login', passport.authenticate('local', {
   failureRedirect: '/notlogin',
   successRedirect: '/loggedin'
 }))
+
 module.exports = route;
