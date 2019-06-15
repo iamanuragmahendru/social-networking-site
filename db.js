@@ -48,21 +48,23 @@ const User = sequelize.define('user', {
   pincode: {
     type: Sequelize.INTEGER
   }
-}, {
-  hooks: {
-    beforeCreate: (user, options) => {
-      user.password = user.password && user.password != "" ? bcrypt.hash(user.password, saltRounds) : "";
-    },
-    beforeUpdate: (user, options) => {
-      user.password = user.password && user.password != "" ? bcrypt.hash(user.password, saltRounds) : "";
-    }
-  }
 });
+
+//validPassword function to be used by passportjs
+
+// function validPassword(password) {
+//   return bcrypt.compareSync(myPlaintextPassword, hash)
+// }
 
 User.sync()
   .then(() => console.log("Database created"))
   .catch((err) => console.error(err))
 
+
+module.exports = {
+  sequelize,
+  User
+}
 
 /* To test the connection
 
@@ -77,3 +79,16 @@ sequelize
 
 /* To close the connection
 sequelize.close(); */
+
+//Encrypt the password before entering it to database
+
+// , {
+//   hooks: {
+//     beforeCreate: (user, options) => {
+//       user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, saltRounds) : "";
+//     },
+//     beforeUpdate: (user, options) => {
+//       user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, saltRounds) : "";
+//     }
+//   }
+// }
