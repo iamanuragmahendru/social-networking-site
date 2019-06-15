@@ -18,12 +18,9 @@ const User = sequelize.define('user', {
     autoIncrement: true,
     primaryKey: true
   },
-  firstName: {
-    type: Sequelize.STRING(25),
+  name: {
+    type: Sequelize.STRING(50),
     allowNull: false
-  },
-  lastName: {
-    type: Sequelize.STRING(25)
   },
   username: {
     type: Sequelize.STRING,
@@ -31,22 +28,7 @@ const User = sequelize.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
-  },
-  gender: {
-    type: Sequelize.STRING(6)
-  },
-  dob: {
-    type: Sequelize.DATEONLY
-  },
-  city: {
-    type: Sequelize.STRING
-  },
-  state: {
-    type: Sequelize.STRING
-  },
-  pincode: {
-    type: Sequelize.INTEGER
+    allowNunl: false
   }
 });
 
@@ -56,7 +38,7 @@ const User = sequelize.define('user', {
 //   return bcrypt.compareSync(myPlaintextPassword, hash)
 // }
 
-User.sync()
+User.sync({force: true})
   .then(() => console.log("Database created"))
   .catch((err) => console.error(err))
 

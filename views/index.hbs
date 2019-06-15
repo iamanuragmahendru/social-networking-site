@@ -20,7 +20,7 @@
 <form action="/login" method="post">
 <form>
   <div class="form-group">
-    <label for="userEmail">Username</label>
+    <label for="userEmail">Username/Email address</label>
     <input type="email" name="username" class="form-control" id="userEmail" aria-describedby="emailHelp" placeholder="Enter email">
     </div>
   <div class="form-group">
@@ -38,26 +38,107 @@
     <div class="tab-pane fade" id="nav-signup" role="tabpanel" aria-labelledby="nav-signup-tab">
         <form action="/signup" method="post">
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="inputName">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your Name">
+                <div class="col-md-12">
+                 <label for="inputName">Name</label>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name">
+                </div>
+                <div class="form-group col-md-6">
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="inputEmail">Email</label>
-                    <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email Address">
+                    <input type="email" class="form-control" id="inputEmail" name="inputUsername" placeholder="Email Address">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="inputPassword">Password</label>
-                    <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+                    <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Password">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Sign up</button>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+            <label for="genderOptions">Gender</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="genderOptions" id="maleRadio" value="Male">
+                <label class="form-check-label" for="maleRadio">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="genderOptions" id="femaleRadio" value="Female">
+                <label class="form-check-label" for="femaleRadio">Female</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="genderOptions" id="othersRadio" value="Others">
+                <label class="form-check-label" for="othersRadio">Others</label>
+            </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputDOB">D.O.B.</label>
+                <input type="date" class="form-control" name="DOB" id="inputDOB">
+            </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">City</label>
+                    <input type="text" class="form-control" name="userCity" id="inputCity">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputState">State</label>
+                    <select id="inputState" class="form-control" name="userState">
+                        <option value="">Select State</option>
+                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
+                        <option value="Daman and Diu">Daman and Diu</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Orissa">Orissa</option>
+                        <option value="Pondicherry">Pondicherry</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttaranchal">Uttaranchal</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="West Bengal">West Bengal</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputPin">Pin Code</label>
+                    <input type="text" name="userPin" class="form-control" id="inputPin">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="tncCheck" id="termsCheck">
+                    <label class="form-check-label" for="termsCheck">
+                        I agree to the Terms and Conditions
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign in</button>
         </form>
     </div>
 </div>

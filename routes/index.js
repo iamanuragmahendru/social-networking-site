@@ -9,12 +9,12 @@ route.get('/', function (req, res, next) {
   });
 });
 
-/* route.post('/signup', (req, res) => {
+route.post('/signup', (req, res) => {
   User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    username: req.body.username,
-    password: req.body.passsword,
+    username: req.body.inputUsername,
+    password: req.body.inputPassword,
     gender: req.body.genderOptions,
     dob: req.body.DOB,
     city: req.body.userCity,
@@ -23,13 +23,14 @@ route.get('/', function (req, res, next) {
   }).then((user) => {
     res.status(201).send(user)
   }).catch((err) => {
+    console.log(err)
     res.status(501).send({
       error: "Could not add new user"
     })
   })
-}) */
+})
 
-route.post('/signup', (req, res) => {
+/* route.post('/signup', (req, res) => {
   User.create({
     name: req.body.name,
     email: req.body.email,
@@ -44,7 +45,7 @@ route.post('/signup', (req, res) => {
     res.send("Could not add new user")
   })
 })
-
+ */
 route.post('/login', (req, res) => {
   var passkey;
   User.findOne({
