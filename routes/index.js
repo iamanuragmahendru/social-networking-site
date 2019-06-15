@@ -2,7 +2,6 @@ const route = require('express').Router()
 const User = require('../db').User
 // const passport = require('../passport')
 
-/* GET home page. */
 route.get('/', function (req, res, next) {
   res.render('index', {
     title: 'Social Network',
@@ -10,7 +9,7 @@ route.get('/', function (req, res, next) {
   });
 });
 
-route.post('/signup', (req, res) => {
+/* route.post('/signup', (req, res) => {
   User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -28,15 +27,40 @@ route.post('/signup', (req, res) => {
       error: "Could not add new user"
     })
   })
+}) */
+
+route.post('/signup', (req, res) => {
+  User.create({
+    name: req.body.name,
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+  })
+  .then((user) => {
+    res.send("User created")
+  })
+  .catch((err) => {
+    console.log(err)
+    res.send("Could not add new user")
+  })
 })
 
-route.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/success',
-    failureRedirect: '/fail',
-    failureFlash: true
+route.post('/login', (req, res) => {
+  var passkey;
+  User.findOne({
+    where: {username: req.body.username}
   })
-);
-
+  .then((user) => {
+      passkey = user.password
+      console.log(passkey)
+      if(req.body.password == passkey)
+        res.status(201).send("Hello user")
+      else  
+      res.status(201).send("Not Found")
+  })
+  .catch((err) => {
+    res.status.send("Not able to retrieve user")
+  })
+})
 
 module.exports = route;
