@@ -48,15 +48,25 @@ const User = sequelize.define('user', {
   pincode: {
     type: Sequelize.INTEGER
   }
+},
+ {
+  hooks: 
+  {
+    beforeCreate: (user, options) => {
+      user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, saltRounds) : "";
+    },
+    beforeUpdate: (user, options) => {
+      user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, saltRounds) : "";
+    }
+  }
 });
 
-//validPassword function to be used by passportjs
+User.prototype.validPassword =function(password) {
+  return bcrypt.compareSync(password, this.password);
+}
 
-// function validPassword(password) {
-//   return bcrypt.compareSync(myPlaintextPassword, hash)
-// }
 
-User.sync({force: true})
+sequelize.sync()
   .then(() => console.log("Database created"))
   .catch((err) => console.error(err))
 
@@ -79,16 +89,3 @@ sequelize
 
 /* To close the connection
 sequelize.close(); */
-
-//Encrypt the password before entering it to database
-
-// , {
-//   hooks: {
-//     beforeCreate: (user, options) => {
-//       user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, saltRounds) : "";
-//     },
-//     beforeUpdate: (user, options) => {
-//       user.password = user.password && user.password != "" ? bcrypt.hashSync(user.password, saltRounds) : "";
-//     }
-//   }
-// }

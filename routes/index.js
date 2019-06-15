@@ -1,6 +1,6 @@
 const route = require('express').Router()
 const User = require('../db').User
-// const passport = require('../passport')
+const passport = require('../passport')
 
 route.get('/', function (req, res, next) {
   res.render('index', {
@@ -46,22 +46,29 @@ route.post('/signup', (req, res) => {
   })
 })
  */
-route.post('/login', (req, res) => {
-  var passkey;
+/* route.post('/login', (req, res) => {
+  let pass= req.body.password
   User.findOne({
     where: {username: req.body.username}
   })
   .then((user) => {
-      passkey = user.password
-      console.log(passkey)
-      if(req.body.password == passkey)
-        res.status(201).send("Hello user")
-      else  
-      res.status(201).send("Not Found")
+    if (!user) {
+        res.send('No such user');
+    } else if (!user.validPassword(pass)) {
+        res.send('Wrong Password');
+    } else {
+        //req.session.user = user.dataValues;
+        res.send('hello' + user.firstName);
+    }
   })
   .catch((err) => {
+    console.log(err)
     res.status.send("Not able to retrieve user")
   })
-})
+}) */
 
+route.post('/login', passport.authenticate('local', {
+  failureRedirect: '/notlogin',
+  successRedirect: '/loggedin'
+}))
 module.exports = route;
