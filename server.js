@@ -24,12 +24,14 @@ app.use(passport.session())
 
 const indexRoute = require('./routes/index')
 const userRoute = require('./routes/user')
+const profileRoute = require('./routes/profiles')
 const adminRoute = require('./routes/admin')
 
 // View engine setup
 
 let handlebars = require('express-handlebars').create({
-    layoutsDir: path.join(__dirname, "views/layouts"),
+    layoutsDir: path.join(__dirname, 'views/layouts'),
+    partialsDir: path.join(__dirname, 'views/partials'),
     defaultLayout: 'layout',
     extname: 'hbs'
 });
@@ -51,6 +53,7 @@ app.use('/public', express.static('public'))
 // });
 app.use('/', indexRoute)
 app.use('/users', userRoute)
+app.use('/profiles', profileRoute)
 
 // To start the server and listen at the  given port
 

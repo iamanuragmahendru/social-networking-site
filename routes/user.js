@@ -1,11 +1,16 @@
 const route = require('express').Router()
 
 route.get('/:id', (req, res) => {
-    // let id = req.params.id
-    if (req.user.id) {
-        return res.send("Visible to only logged in users")
+    if (req.user && (req.user.uid == req.params.id)) {
+        let name = req.user.firstName + ' ' + req.user.lastName
+        res.render('user', {
+            title: name + ' - Social Network'
+        })
     } else {
-        res.redirect('/login')
+        res.send(`
+        Not authorized
+        <a href="/">Go to main page</a>
+        `)
     }
 })
 

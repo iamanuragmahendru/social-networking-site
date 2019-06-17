@@ -37,7 +37,7 @@ route.post('/login', (req, res, next) => {
       return next(err)
     }
     if (!user) {
-      return res.redirect('/loginIncorrect')
+      return res.redirect('/login')
     }
     req.logIn(user, function (err) {
       if (err) {
@@ -50,19 +50,12 @@ route.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-route.get('/loginIncorrect', (req, res) => {
-  res.render('incorrectLogin', {
+route.get('/login', (req, res) => {
+  res.render('Login', {
     title: 'Social Network',
     layout: 'layoutLoginPage.hbs'
   });
 });
-
-route.post('/loginIncorrect',
-  passport.authenticate('local', {
-    successRedirect: '/users',
-    failureRedirect: '/loginIncorrect',
-  })
-);
 
 route.get('/forgotpassword', (req, res) => {
   res.render('forgotPassword', {
