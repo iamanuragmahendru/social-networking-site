@@ -41,7 +41,16 @@ app.set('views', path.join(__dirname, "views"));
 // Handle the requests
 
 app.use('/public', express.static('public'))
+// app.use(function(req, res, next) {
+//     if (req.session.user == null){
+// // if user is not logged-in redirect back to login page //
+//         res.redirect('/');
+//     }   else{
+//         next();
+//     }
+// });
 app.use('/', indexRoute)
+app.use('/users', userRoute)
 
 // To start the server and listen at the  given port
 

@@ -30,9 +30,84 @@ route.post('/signup', (req, res) => {
   })
 })
 
-route.post('/login', passport.authenticate('local', {
-  failureRedirect: '/notlogin',
-  successRedirect: '/loggedin'
-}))
+route.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/users',
+    failureRedirect: '/loginIncorrect',
+  })
+);
+
+route.get('/loginIncorrect', (req, res) => {
+  res.render('incorrectLogin', {
+    title: 'Social Network',
+    layout: 'layoutLoginPage.hbs'
+  });
+});
+
+route.post('/loginIncorrect',
+  passport.authenticate('local', {
+    successRedirect: '/users',
+    failureRedirect: '/loginIncorrect',
+  })
+);
+
+route.get('/forgotpassword', (req, res) => {
+  res.render('forgotPassword' , {
+    title: 'Social Network - Forgot Password',
+    layout: 'layoutLoginPage.hbs'
+  });
+})
+
+route.post('/forgotpassword', (req, res) => {
+  User.findOne({
+    where: {
+        username: req.body.username
+    }
+}).then((user) => {
+    if (!user) {
+        console.log('No such user')
+        res.send(`
+        <script>
+            alert('No such User')
+        </script>
+        <a href="/forgotpassword">Go back </a>`
+        )
+    }
+    else if (user.dob != req.body.DOB) {
+      res.send(`
+      <script>
+          alert('Incorrect DOB')
+      </script>
+      <a href="/forgotpassword">Go back </a>`
+      )
+    }
+    else {
+      console.log('User verified')
+      res.send(`
+      <script>
+          alert('Check your email for new password')
+      </script>
+      <a href="/">Go Back to Main Page</a>`
+      )
+    }
+}).catch((err) => {
+    console.log(err)
+    return done(err)
+})
+
+
+})
+
+/* route.post("/login", passport.authenticate('local',
+    { failureRedirect: '/login',
+      failureFlash: true }), function(req, res) {
+        if (req.body.rememberCheck) {
+          req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // Cookie expires after 30 days
+        } else {
+          req.session.cookie.expires = false; // Cookie expires at end of session
+        }
+      res.redirect('/loggedin');
+});
+ */
 
 module.exports = route;
