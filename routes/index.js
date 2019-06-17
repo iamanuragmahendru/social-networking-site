@@ -30,12 +30,25 @@ route.post('/signup', (req, res) => {
   })
 })
 
-route.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/users',
-    failureRedirect: '/loginIncorrect',
-  })
-);
+route.post('/login', (req, res, next) => {
+  passport.authenticate('local', function (err, user, info) {
+    if (err) {
+      console.log(err)
+      return next(err)
+    }
+    if (!user) {
+      return res.redirect('/loginIncorrect')
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        console.log(err)
+        return next(err)
+      }
+      console.log("Logged In. Now Redirecting")
+      return res.redirect('/users/' + user.uid);
+    });
+  })(req, res, next);
+});
 
 route.get('/loginIncorrect', (req, res) => {
   res.render('incorrectLogin', {
