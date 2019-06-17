@@ -52,7 +52,7 @@ route.post('/loginIncorrect',
 );
 
 route.get('/forgotpassword', (req, res) => {
-  res.render('forgotPassword' , {
+  res.render('forgotPassword', {
     title: 'Social Network - Forgot Password',
     layout: 'layoutLoginPage.hbs'
   });
@@ -61,42 +61,39 @@ route.get('/forgotpassword', (req, res) => {
 route.post('/forgotpassword', (req, res) => {
   User.findOne({
     where: {
-        username: req.body.username
+      username: req.body.username
     }
-}).then((user) => {
+  }).then((user) => {
     if (!user) {
-        console.log('No such user')
-        res.send(`
+      console.log('No such user')
+      res.send(`
         <script>
             alert('No such User')
         </script>
-        <a href="/forgotpassword">Go back </a>`
-        )
-    }
-    else if (user.dob != req.body.DOB) {
+        <a href="/forgotpassword">Go back </a>`)
+    } else if (user.dob != req.body.DOB) {
       res.send(`
       <script>
           alert('Incorrect DOB')
       </script>
-      <a href="/forgotpassword">Go back </a>`
-      )
-    }
-    else {
+      <a href="/forgotpassword">Go back </a>`)
+    } else {
       console.log('User verified')
       res.send(`
       <script>
           alert('Check your email for new password')
       </script>
-      <a href="/">Go Back to Main Page</a>`
-      )
+      <a href="/">Go Back to Main Page</a>`)
     }
-}).catch((err) => {
+  }).catch((err) => {
     console.log(err)
     return done(err)
+  })
 })
 
+//TODO
 
-})
+//To implement Remember Me functionality
 
 /* route.post("/login", passport.authenticate('local',
     { failureRedirect: '/login',
