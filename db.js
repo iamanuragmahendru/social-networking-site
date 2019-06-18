@@ -69,6 +69,76 @@ User.prototype.validPassword =function(password) {
   return bcrypt.compareSync(password, this.password);
 }
 
+// Defining data model for posts
+
+const Post = sequelize.define('post', {
+postId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  postText: {
+    type: Sequelize.TEXT,
+    allowNull:false
+  }
+})
+
+// Defining data model for comments
+
+const Comment = sequelize.define('comment', {
+  commentId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  commentText: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  }
+})
+
+// Defining data model for profile pictures
+
+const ProfilePic = sequelize.define('profilePic', {
+  profilePicId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  profilePicName: Sequelize.STRING
+})
+
+// Defining data model for friends
+
+const Friend = sequelize.define('friend', {
+  friendId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  isFriend: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  }
+})
+
+// Association between different data models
+
+User.hasMany(Post)
+Post.belongsTo(User)
+
+User.hasMany(Comment)
+Post.hasMany(Comment)
+Comment.belongsTo(User)
+Comment.belongsTo(Post)
+
+User.hasOne(ProfilePic)
+ProfilePic.belongsTo(User)
+
+User.hasMany(Friend)
+Friend.belongsTo(User, { foreignKey: 'userId1' })
+Friend.belongsTo(User, { foreignKey: 'userId2' })
+
 // Synchronize the database
 
 sequelize.sync()
@@ -78,7 +148,11 @@ sequelize.sync()
 
 module.exports = {
   sequelize,
-  User
+  User,
+  Post,
+  Comment,
+  ProfilePic,
+  Friend
 }
 
 /* To test the connection
