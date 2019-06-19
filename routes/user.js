@@ -14,7 +14,12 @@ route.get('/:id', (req, res) => {
                     userUid: id
                 }
             })
-            dp = profilePic.profilePicName
+            if(!profilePic) {
+                dp = ''
+            }
+            else {
+                dp = profilePic.profilePicName
+            }
             await res.render('user', {
                 title: firstName + ' ' + lastName + ' - Social Network',
                 id: id,

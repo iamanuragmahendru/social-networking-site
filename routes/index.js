@@ -2,12 +2,16 @@ const route = require('express').Router()
 const User = require('../db').User
 const passport = require('../passport')
 
-route.get('/', function (req, res, next) {
+route.get('/', (req, res) => {
   res.render('index', {
     title: 'Social Network',
     layout: 'layoutLoginPage.hbs'
   });
 });
+
+route.get('/signup', (req, res) => {
+  res.redirect('/')
+})
 
 route.post('/signup', (req, res) => {
   User.create({
@@ -21,9 +25,10 @@ route.post('/signup', (req, res) => {
     state: req.body.userState,
     pincode: req.body.userPin
   }).then((user) => {
-    res.render('signup', {
-      title: 'New Signup select profile avatar - Social Network',
-      layout: 'layoutLoginPage.hbs'
+    res.render('newSignup', {
+      title: 'Welcome to Social Network',
+      layout: 'layoutLoginPage',
+      username: user.firstName
     })
   }).catch((err) => {
     console.log(err)
@@ -118,3 +123,17 @@ route.post('/forgotpassword', (req, res) => {
  */
 
 module.exports = route;
+
+
+
+
+
+/* let profileAvatar = []
+    for(i = 1; i <= 10; i++) {
+      profileAvatar.push("profile_avatar_" + i + ".jpg")
+    }
+    res.render('selectProfileAvatar', {
+      title: 'New Signup select profile avatar - Social Network',
+      profileAvatar: profileAvatar,
+      layout: 'layoutLoginPage.hbs'
+    }) */
