@@ -8,7 +8,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="search d-flex justify-content-center">
-        <form class="form-inline">
+        <form class="form-inline" action="/users/{{id}}/searchuser" method="GET">
     <input class="form-control mr-sm-2" type="search" placeholder="Search for a user" aria-label="Search">
     <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
   </form>
@@ -16,23 +16,22 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/users/{{id}}">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Friends</a>
+          <a class="nav-link" href="/users/{{id}}/follow">Follow</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Notifications</a>
+          <a class="nav-link" href="/users/{{id}}/notifications">Notifications</a>
         </li>
          <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Manage
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/users/settings">Settings</a>
-          
+          <a class="dropdown-item" href="/users/{{id}}/settings">Settings</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" href="/users/{{id}}/logout">Logout</a>
         </div>
       </li>
       </ul>

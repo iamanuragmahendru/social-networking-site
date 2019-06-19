@@ -30,7 +30,87 @@ route.get('/:id', (req, res) => {
     }
 })
 
-route.get('/settings', (req, res) => {
+route.get('/:id/follow', (req, res) => {
+    if(req.user) {
+        res.render('user', {
+            title: firstName + ' ' + lastName + ' - Social Network',
+            dp: '/private/users/profilepics/' + dp,
+            userFirstName: firstName
+        })
+    }
+    else {
+        res.send(`
+        Not authorized
+        <a href="/">Go to main page</a>
+        `)
+    }
+})
+
+route.get('/:id/messages', (req, res) => {
+    if(req.user) {
+        res.render('user', {
+            title: firstName + ' ' + lastName + ' - Social Network',
+            dp: '/private/users/profilepics/' + dp,
+            userFirstName: firstName
+        })
+    }
+    else {
+        res.send(`
+        Not authorized
+        <a href="/">Go to main page</a>
+        `)
+    }
+})
+
+route.get('/:id/settings', (req, res) => {
+    if(req.user) {
+        res.render('user', {
+            title: firstName + ' ' + lastName + ' - Social Network',
+            dp: '/private/users/profilepics/' + dp,
+            userFirstName: firstName
+        })
+    }
+    else {
+        res.send(`
+        Not authorized
+        <a href="/">Go to main page</a>
+        `)
+    }
+})
+
+route.get('/:id/notifications', (req, res) => {
+    if(req.user) {
+        res.render('user', {
+            title: firstName + ' ' + lastName + ' - Social Network',
+            dp: '/private/users/profilepics/' + dp,
+            userFirstName: firstName
+        })
+    }
+    else {
+        res.send(`
+        Not authorized
+        <a href="/">Go to main page</a>
+        `)
+    }
+})
+
+route.get('/:id/searchuser', (req, res) => {
+    if(req.user) {
+        res.render('user', {
+            title: firstName + ' ' + lastName + ' - Social Network',
+            dp: '/private/users/profilepics/' + dp,
+            userFirstName: firstName
+        })
+    }
+    else {
+        res.send(`
+        Not authorized
+        <a href="/">Go to main page</a>
+        `)
+    }
+})
+
+route.get('/:id/logout', (req, res) => {
     if(req.user) {
         res.render('user', {
             title: firstName + ' ' + lastName + ' - Social Network',
