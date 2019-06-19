@@ -2,10 +2,11 @@ const route = require('express').Router()
 const ProfilePic = require('../db').ProfilePic
 
 route.get('/:id', (req, res) => {
-    if (req.user && (req.user.uid == req.params.id)) {
-        let id = req.user.uid
-        let firstName = req.user.firstName
-        let lastName = req.user.lastName
+    let user = req.session.user
+    if (req.user && (user.uid == req.params.id)) {
+        let id = user.uid
+        let firstName = user.firstName
+        let lastName = user.lastName
         let dp = ''
         async function handleGetReq(id) {
             let profilePic = await ProfilePic.findOne({

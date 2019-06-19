@@ -108,17 +108,13 @@ const ProfilePic = sequelize.define('profilePic', {
   profilePicName: Sequelize.STRING
 })
 
-// Defining data model for friends
+// Defining data model for follow list
 
-const Friend = sequelize.define('friend', {
-  friendId: {
+const Follow = sequelize.define('follow', {
+  followid: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true
-  },
-  isFriend: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false
   }
 })
 
@@ -135,9 +131,9 @@ Comment.belongsTo(Post)
 User.hasOne(ProfilePic)
 ProfilePic.belongsTo(User)
 
-User.hasMany(Friend)
-Friend.belongsTo(User, { foreignKey: 'userId1' })
-Friend.belongsTo(User, { foreignKey: 'userId2' })
+User.hasMany(Follow)
+Follow.belongsTo(User, { foreignKey: 'userId' })
+Follow.belongsTo(User, { foreignKey: 'followerId' })
 
 // Synchronize the database
 
@@ -152,7 +148,7 @@ module.exports = {
   Post,
   Comment,
   ProfilePic,
-  Friend
+  Follow
 }
 
 /* To test the connection
@@ -168,3 +164,15 @@ sequelize
 
 /* To close the connection
 sequelize.close(); */
+
+/* const Friend = sequelize.define('friend', {
+  friendId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  isFriend: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  }
+}) */

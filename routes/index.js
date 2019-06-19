@@ -21,7 +21,10 @@ route.post('/signup', (req, res) => {
     state: req.body.userState,
     pincode: req.body.userPin
   }).then((user) => {
-    res.status(201).send(user)
+    res.render('signup', {
+      title: 'New Signup select profile avatar - Social Network',
+      layout: 'layoutLoginPage.hbs'
+    })
   }).catch((err) => {
     console.log(err)
     res.status(501).send({
@@ -40,11 +43,12 @@ route.post('/login', (req, res, next) => {
       return res.redirect('/login')
     }
     req.logIn(user, function (err) {
+      console.log(user)
       if (err) {
         console.log(err)
         return next(err)
       }
-      console.log("Logged In. Now Redirecting")
+      req.session.user = user // Temporary soln used as req.user always updated to uid 1
       return res.redirect('/users/' + user.uid);
     });
   })(req, res, next);
@@ -59,7 +63,7 @@ route.get('/login', (req, res) => {
 
 route.get('/forgotpassword', (req, res) => {
   res.render('forgotPassword', {
-    title: 'Social Network - Forgot Password',
+    title: ' Forgot Password - Social Network',
     layout: 'layoutLoginPage.hbs'
   });
 })
