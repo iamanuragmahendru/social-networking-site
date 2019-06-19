@@ -6,14 +6,22 @@ route.get('/:id', (req, res) => {
         let id = req.user.uid
         let firstName = req.user.firstName
         let lastName = req.user.lastName
-        let dp = findDP(id)
-        console.log(dp)
-        res.render('user', {
-            title: firstName + ' ' + lastName + ' - Social Network',
-            id: id,
-            dp: '/public/users/profilepics/' + dp,
-            userFirstName: firstName
-        })
+        let dp = ''
+        async function handleGetReq(id) {
+            let profilePic = await ProfilePic.findOne({
+                where: {
+                    userUid: id
+                }
+            })
+            dp = profilePic.profilePicName
+            await res.render('user', {
+                title: firstName + ' ' + lastName + ' - Social Network',
+                id: id,
+                dp: '/public/users/profilepics/' + dp,
+                userFirstName: firstName
+            })
+        }
+        handleGetReq(id)
     } else {
         res.send(`
         Not authorized
@@ -37,21 +45,5 @@ route.get('/settings', (req, res) => {
         `)
     }
 })
-
-function findDP(id) {
-    let name = ProfilePic.findOne({
-        where : {
-            userUid: id
-        }
-    }).then((profilePic) => {
-        if(!profilePic) {
-            return done(null, false)
-        }
-        else {
-            return done(null, profilePic)
-        }
-    })
-    return name
-}
 
 module.exports = route
