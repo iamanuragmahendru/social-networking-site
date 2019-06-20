@@ -1,5 +1,6 @@
 const route = require('express').Router()
 const User = require('../db').User
+const ProfilePic = require('../db').ProfilePic
 const passport = require('../passport')
 
 route.get('/', (req, res) => {
@@ -25,6 +26,9 @@ route.post('/signup', (req, res) => {
     state: req.body.userState,
     pincode: req.body.userPin
   }).then((user) => {
+    ProfilePic.create({
+      profilePicName: 'profile_avatar_1.jpg'
+    })
     res.render('newSignup', {
       title: 'Welcome to Social Network',
       layout: 'layoutLoginPage',
@@ -123,17 +127,3 @@ route.post('/forgotpassword', (req, res) => {
  */
 
 module.exports = route;
-
-
-
-
-
-/* let profileAvatar = []
-    for(i = 1; i <= 10; i++) {
-      profileAvatar.push("profile_avatar_" + i + ".jpg")
-    }
-    res.render('selectProfileAvatar', {
-      title: 'New Signup select profile avatar - Social Network',
-      profileAvatar: profileAvatar,
-      layout: 'layoutLoginPage.hbs'
-    }) */

@@ -10,7 +10,7 @@
     <div class="row" id="selectProfileAvatar">
         <div class="col">
             <form action="/users/{{id}}/selectedprofileavatar" method="post">
-                <div class="form-inline form-group">
+                <div class="form-inline form-group" id="selectProfileAvatarDiv">
                     {{#each profileAvatar}}
                     <div class="col-2 card p-1 m-1 form-group">
                         <input type="radio" name="profileavatar" id="profileAvatar" value="{{this}}">
