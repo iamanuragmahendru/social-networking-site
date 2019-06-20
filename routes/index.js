@@ -113,6 +113,13 @@ route.post('/forgotpassword', (req, res) => {
   })
 })
 
+route.get('/notauthorised', (req, res) => {
+  res.render('notAuthorized', {
+    title: 'Error - Social Network',
+    layout: 'layoutLoginPage'
+  })
+})
+
 //TODO
 
 //To implement Remember Me functionality

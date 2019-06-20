@@ -3,7 +3,7 @@ $(function () {
     let userPosts = $('#userPosts')
 
     function fetchPosts(done) {
-        $.get('posts', (posts) => {
+        $.get('/api/posts', (posts) => {
             done(posts)
         })
     }
@@ -12,7 +12,7 @@ $(function () {
         userPosts.empty()
         
         for (post of posts) {
-            userPosts.append(appendPost(post))
+            userPosts.append(`<b>${post.postText}</b>`)
         }
     })
 

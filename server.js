@@ -12,6 +12,7 @@ const indexRoute = require('./routes/index')
 const userRoute = require('./routes/user')
 const profileRoute = require('./routes/profiles')
 const adminRoute = require('./routes/admin')
+const apiRoute = require('./routes/api')
 
 // View engine setup
 
@@ -44,8 +45,10 @@ app.use(passport.session())
 // Handle the requests
 
 app.use('/', indexRoute)
+app.use('/api',  apiRoute)
 app.use('/users', userRoute)
 app.use('/profiles', profileRoute)
+app.use('/admin', adminRoute)
 
 // To start the server and listen at the  given port
 

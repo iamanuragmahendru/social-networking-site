@@ -5,10 +5,7 @@ route.get('/', (req, res) => {
     if (req.user) {
         res.redirect('/users/' + req.user.uid)
     } else {
-        res.send(`
-        Not authorized
-        <a href="/">Go to main page</a>
-        `)
+        res.redirect('/notauthorised')
     }
 })
 
@@ -40,10 +37,7 @@ route.get('/:id', (req, res) => {
         }
         handleGetReq(id)
     } else {
-        res.send(`
-        Not authorized
-        <a href="/">Go to main page</a>
-        `)
+        res.redirect('/notauthorised')
     }
 })
 
@@ -75,10 +69,7 @@ route.get('/:id/:link', (req, res) => {
         }
         handleGetReq(id)
     } else {
-        res.send(`
-        Not authorized
-        <a href="/">Go to main page</a>
-        `)
+        res.redirect('/notauthorised')
     }
 })
 
@@ -93,8 +84,6 @@ route.post('/:id/selectedprofileavatar', (req, res) => {
                 profilePicName: req.body.profileavatar
             }
         }).then(([profilePic, created]) => {
-            console.log(profilePic)
-            console.log(created)
             if (!created) {
                 ProfilePic.update({
                     profilePicName: req.body.profileavatar,
@@ -105,18 +94,12 @@ route.post('/:id/selectedprofileavatar', (req, res) => {
                 });
             }
 
-            res.send(`
-                Profile Avatar successfully updated <br>
-                <a href="/users">Go to Profile</a>
-            `)
+            res.redirect('/users')
         }).catch((err) => {
             console.log(err)
         })
     } else {
-        res.send(`
-        Not authorized
-        <a href="/">Go to main page</a>
-        `)
+        res.redirect('/notauthorised')
     }
 })
 

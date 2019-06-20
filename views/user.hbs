@@ -3,7 +3,7 @@
         {{>sidebar}}
         <div class="col-10">
             <div class="profile">
-                <form action="/users/{{id}}/newpost" method="post">
+                <form action="/api/posts" method="post">
                     <input type="text" name="newpost" id="newpost" placeholder="Enter something to post">
                     <button type="submit" class="btn btn-primary">Post</button>
                 </form>
