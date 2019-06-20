@@ -26,9 +26,9 @@ route.post('/signup', (req, res) => {
     state: req.body.userState,
     pincode: req.body.userPin
   }).then((user) => {
-    ProfilePic.create({
+/*     ProfilePic.create({
       profilePicName: 'profile_avatar_1.jpg'
-    })
+    }) */
     res.render('newSignup', {
       title: 'Welcome to Social Network',
       layout: 'layoutLoginPage',
@@ -52,12 +52,15 @@ route.post('/login', (req, res, next) => {
       return res.redirect('/login')
     }
     req.logIn(user, function (err) {
-      console.log(user)
+      
       if (err) {
         console.log(err)
         return next(err)
       }
-      req.session.user = user // Temporary soln used as req.user always updated to uid 1
+      // Temporary soln used as req.user always updated to uid 1
+      // Problem solved in passport deserializeUser
+
+      //req.session.user = user
       return res.redirect('/users/' + user.uid);
     });
   })(req, res, next);

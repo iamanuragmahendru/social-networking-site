@@ -2,9 +2,8 @@ const route = require('express').Router()
 const ProfilePic = require('../db').ProfilePic
 
 route.get('/', (req, res) => {
-    let user = req.session.user
-    if (req.user && (user.uid == req.params.id)) {
-        res.redirect('/users/' + user.uid)
+    if (req.user) {
+        res.redirect('/users/' + req.user.uid)
     } else {
         res.send(`
         Not authorized
@@ -14,8 +13,8 @@ route.get('/', (req, res) => {
 })
 
 route.get('/:id', (req, res) => {
-    let user = req.session.user
-    if (req.user && (user.uid == req.params.id)) {
+    if (req.user && (req.user.uid == req.params.id)) {
+        let user = req.user
         let id = user.uid
         let firstName = user.firstName
         let lastName = user.lastName
@@ -35,7 +34,8 @@ route.get('/:id', (req, res) => {
                 title: firstName + ' ' + lastName + ' - Social Network',
                 id: id,
                 dp: '/public/users/profilepics/' + dp,
-                userFirstName: firstName
+                userFirstName: firstName,
+                includejs: 'userposts'
             })
         }
         handleGetReq(id)
@@ -47,7 +47,83 @@ route.get('/:id', (req, res) => {
     }
 })
 
-route.get('/:id/follow', (req, res) => {
+route.get('/:id/:link', (req, res) => {
+    if (req.user && (req.user.uid == req.params.id)) {
+        let user = req.user
+        let id = user.uid
+        let firstName = user.firstName
+        let dp = ''
+        let link = req.params.link
+        async function handleGetReq(id) {
+            let profilePic = await ProfilePic.findOne({
+                where: {
+                    userUid: id
+                }
+            })
+            if (!profilePic) {
+                dp = ''
+            } else {
+                dp = profilePic.profilePicName
+            }
+            await res.render(link, {
+                title: firstName + ' ' + link + ' - Social Network',
+                id: id,
+                dp: '/public/users/profilepics/' + dp,
+                userFirstName: firstName,
+                includejs: link
+            })
+        }
+        handleGetReq(id)
+    } else {
+        res.send(`
+        Not authorized
+        <a href="/">Go to main page</a>
+        `)
+    }
+})
+
+route.post('/:id/selectedprofileavatar', (req, res) => {
+    if(req.user && (req.user.uid == req.params.id)) {
+        let id = req.user.uid
+        ProfilePic.findOrCreate({
+            where: {
+                userUid: id,
+            },
+            defaults: {
+                profilePicName: req.body.profileavatar
+            }
+        }).then(([profilePic, created]) => {
+            console.log(profilePic)
+            console.log(created)
+            if (!created) {
+                ProfilePic.update({
+                    profilePicName: req.body.profileavatar,
+                }, {
+                    where: {
+                        userUid: id
+                    }
+                });
+            }
+
+            res.send(`
+                Profile Avatar successfully updated <br>
+                <a href="/users">Go to Profile</a>
+            `)
+        }).catch((err) => {
+            console.log(err)
+        })
+    } else {
+        res.send(`
+        Not authorized
+        <a href="/">Go to main page</a>
+        `)
+    }
+})
+
+module.exports = route
+
+
+/* route.get('/:id/follow', (req, res) => {
     if (req.user) {
         res.render('user', {
             title: firstName + ' ' + lastName + ' - Social Network',
@@ -151,24 +227,7 @@ route.get('/:id/selectprofileavatar', (req, res) => {
     }
 })
 
-route.post('/:id/selectedprofileavatar', (req, res) => {
-    let user = req.session.user
-    if (req.user && (user.uid == req.params.id)) {
-        ProfilePic.update({
-            profilePicName: req.body.profileavatar
-        }, {
-            where: {
-                userUid: user.id
-            }
-        })    
-        }
-     else {
-        res.send(`
-        Not authorized
-        <a href="/">Go to main page</a>
-        `)
-    }
-})
+
 
 route.get('/:id/notifications', (req, res) => {
     if (req.user) {
@@ -213,6 +272,4 @@ route.get('/:id/logout', (req, res) => {
         <a href="/">Go to main page</a>
         `)
     }
-})
-
-module.exports = route
+}) */
