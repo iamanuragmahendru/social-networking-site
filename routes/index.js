@@ -4,10 +4,14 @@ const ProfilePic = require('../db').ProfilePic
 const passport = require('../passport')
 
 route.get('/', (req, res) => {
-  res.render('index', {
-    title: 'Social Network',
-    layout: 'layoutLoginPage.hbs'
-  });
+  if(req.user) {
+    res.redirect('/users')
+  } else {
+    res.render('index', {
+      title: 'Social Network',
+      layout: 'layoutLoginPage.hbs'
+    });
+  }
 });
 
 route.get('/signup', (req, res) => {

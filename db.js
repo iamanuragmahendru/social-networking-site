@@ -97,6 +97,21 @@ const Comment = sequelize.define('comment', {
   }
 })
 
+//TODO
+// Definining data model for messages
+
+/* const Message = sequelize.define('message', {
+  messageId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  messageText: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+}) */
+
 // Defining data model for profile pictures
 
 const ProfilePic = sequelize.define('profilePic', {
@@ -135,6 +150,12 @@ User.hasMany(Follow)
 Follow.belongsTo(User, { foreignKey: 'userId' })
 Follow.belongsTo(User, { foreignKey: 'followerId' })
 
+//TODO
+
+/* User.hasMany(Message)
+Message.belongsTo(User, { foreignKey: 'senderId' })
+Message.belongsTo(User, { foreignKey: 'receiverId' }) */
+
 // Synchronize the database
 
 sequelize.sync()
@@ -148,6 +169,7 @@ module.exports = {
   Post,
   Comment,
   ProfilePic,
+  //Message,
   Follow
 }
 
@@ -164,15 +186,3 @@ sequelize
 
 /* To close the connection
 sequelize.close(); */
-
-/* const Friend = sequelize.define('friend', {
-  friendId: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-  },
-  isFriend: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false
-  }
-}) */

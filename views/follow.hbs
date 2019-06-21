@@ -1,0 +1,28 @@
+<div class="container-fluid bg-light text-dark">
+    <div class="row">
+        {{>sidebar}}
+        <div class="col-10">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active col-6" id="nav-following-tab" data-toggle="tab" href="#nav-following"
+                        role="tab" aria-controls="nav-following" aria-selected="true">Following</a>
+                    <a class="nav-item nav-link col-6" id="nav-followers-tab" data-toggle="tab" href="#nav-followers"
+                        role="tab" aria-controls="nav-followers" aria-selected="false">Followers</a>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-following" role="tabpanel" aria-labelledby="nav-following-tab">
+                    <div id="following">
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-followers" role="tabpanel" aria-labelledby="nav-followers-tab">
+                    <div id="followers">
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
