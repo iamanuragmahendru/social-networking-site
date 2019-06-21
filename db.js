@@ -65,7 +65,7 @@ const User = sequelize.define('user', {
 
 // Creating an Instance Method in sequelize version > 4
 
-User.prototype.validPassword =function(password) {
+User.prototype.validPassword = function(password) {
   return bcrypt.compareSync(password, this.password);
 }
 

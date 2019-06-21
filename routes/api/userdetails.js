@@ -39,28 +39,39 @@ route.post('/', (req, res) => {
 })
 
 route.post('/changepassword', (req, res) => {
-    if(req.user) {
+    if (req.user) {
         let id = req.user.uid
-        let oldPassword = req.params.currentPassword
-        let newPassword = req.params.newPassword
-        if(req.user.validPassword(oldPassword)) {
-            User.update({
-                password: newPassword
-            }, {
-                where: {
-                    uid: id
-                }
-            })
-            res.send(`
-            Password successfully changed <br>
-            <a href="/">Please Login Again</a>
-            `)
+        let oldPassword = req.body.currentPassword
+        let newPassword = req.body.newPassword
+        User.findOne({
+            where: {
+                uid: id
+            }
+        }).then((user) => {
+            if (!user) {
+                res.redirect('/notauthorised')
+            } else if (!user.validPassword(oldPassword)) {
+                res.send(`
+                Wrong password <br>
+                <a href="/users/"` + id + `/changepassword">Try Again</a>
+                `)
             } else {
-            res.send(`
-            Wrong password
-            <a href="/users/{{id}}/changepassword">Try Again</a>
-            `)
-        }
+
+                // Used user to implement beforeUpdate hook otherwise use beforeBulkUpdate
+                
+                user.update({
+                    password: newPassword
+                }, {
+                    where: {
+                        uid: id
+                    }
+                })
+                res.send(`
+                Password successfully changed <br>
+                <a href="/">Please Login Again</a>
+                `)
+            }
+        })
     } else {
         res.redirect('/notauthorised')
     }
