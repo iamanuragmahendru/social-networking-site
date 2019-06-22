@@ -2,10 +2,47 @@
     <div class="row">
         {{>sidebar}}
         <div class="col-10" id="chats">
-            Chat
-            <div id="chatsDiv">
-                
+            <div class="row">
+                <div class="col">
+                    <h2 class="col text-center">CHAT</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3" style="border-right: thin solid blue;">
+                        <input type="text" name="changeUsername" id="changeUsername"
+                            placeholder="Enter username for chat" class="col input-group form-control">
+                        <button id="changeUsernameBtn" class="btn-sm btn-primary m-1">Change Username</button>
+                    <div id="chatRoomDiv">
+
+                    </div>
+
+                </div>
+                <div class="col-9">
+                    <div id="chatsDiv" class="container" style="height: 100%">
+                        <div id="showChatRoom">
+                            <h4 class="col text-center" id="currentChatRoom"></h4>
+                        </div>
+                        <div id="showChat" class="bg-white" style="height: 75%;border-left: blue solid 1px; border-right: blue solid 1px; border-top: blue solid 1px; overflow: auto;">
+
+                        </div>
+                        <div id="showFeatures" class="bg-white" style="height: 10%;border-left: blue solid 1px; border-right: blue solid 1px; border-bottom: blue solid 1px;">
+
+                        </div>
+                        <div id="chatInputDiv" style="height: 15%;border: blue solid 1px;">
+                                <input type="text" name="chat-input" id="chatInput" placeholder="Start Typing"
+                                    class="col-11 form-control input-group form-inline" style="display: inline">
+                                <button id="chatInputbtn" class="btn-sm btn-primary m-1 form-inline" style="display: inline">Send</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{{!-- <script>
+    function getUsername() {
+        let username = '{{userFirstName}}'
+        username = prompt('Enter username for chat :', username)
+    }
+</script> --}}
+<script src="/socket.io/socket.io.js"></script>
