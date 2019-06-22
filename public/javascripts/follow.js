@@ -11,31 +11,33 @@ $(function () {
 
     fetchFollowersList(function (followers) {
         followersDiv.empty()
+        console.log(followers)
 
         if($.isEmptyObject(followers)) {
             followersDiv.append(`<b>You have no Followers</b>`)
         } else {
             for (follower of followers) {
-                followersDiv.append(`<b>${follower.followId}</b>`)
+                followersDiv.append(`<b>${follower.followerId}</b> <br>`)
             }
         }
        
     })
 
     function fetchFollowingList(done) {
-        $.get('/api/followers', (followList) => {
+        $.get('/api/following', (followList) => {
             done(followList)
         })
     }
 
     fetchFollowingList(function (followList) {
         followingDiv.empty()
-        
+        console.log(followList)
+
         if($.isEmptyObject(followList)) {
             followingDiv.append(`<b>You have no Following</b>`)
         } else {
             for (following of followList) {
-                followingDiv.append(`<b>${following.followId}</b>`)
+                followingDiv.append(`<b>${following.userId}</b> <br>`)
             }
         }
         
