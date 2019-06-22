@@ -57,115 +57,7 @@ app.use('/admin', adminRoute)
 
 let usersockets = {}
 
-const booksnsp = io.of('/books');
-booksnsp.on('connection', function(socket){
-  console.log('someone connected at : ' + socket.id);
-
-  socket.emit('connected')
-
-  socket.on('change_user', (data) => {
-      // username is in data.user
-      usersockets[data.user] = socket.id
-      console.log(usersockets)
-  })
-  
-  socket.on('send_msg', (data) => {
-
-      if (data.message.startsWith('@')) {
-          //data.message = "@a: hello"
-          // split at :, then remove @ from beginning
-          let recipient = data.message.split(':')[0].substr(1)
-          let rcptSocket = usersockets[recipient]
-          io.to(rcptSocket).emit('recv_msg', data)
-      } else {
-          socket.emit('recv_msg', data)            
-      }
-  })
-});
-
-const gamesnsp = io.of('/games');
-gamesnsp.on('connection', function(socket){
-  console.log('someone connected at : ' + socket.id);
-  socket.emit('connected')
-  
-  socket.on('change_user', (data) => {
-      // username is in data.user
-      usersockets[data.user] = socket.id
-      console.log(usersockets)
-  })
-  
-  socket.on('send_msg', (data) => {
-
-      if (data.message.startsWith('@')) {
-          //data.message = "@a: hello"
-          // split at :, then remove @ from beginning
-          let recipient = data.message.split(':')[0].substr(1)
-          let rcptSocket = usersockets[recipient]
-          io.to(rcptSocket).emit('recv_msg', data)
-      } else {
-          socket.emit('recv_msg', data)            
-      }
-  })
-});
-
-const moviesnsp = io.of('/movies');
-moviesnsp.on('connection', function(socket){
-  console.log('someone connected at : ' + socket.id);
-  socket.emit('connected')
- 
-  socket.on('change_user', (data) => {
-    // username is in data.user
-    usersockets[data.user] = socket.id
-    console.log(usersockets)
-})
-
-socket.on('send_msg', (data) => {
-
-    if (data.message.startsWith('@')) {
-        //data.message = "@a: hello"
-        // split at :, then remove @ from beginning
-        let recipient = data.message.split(':')[0].substr(1)
-        let rcptSocket = usersockets[recipient]
-        io.to(rcptSocket).emit('recv_msg', data)
-    } else {
-        socket.emit('recv_msg', data)            
-    }
-})
-});
-
-const tvnsp = io.of('/tv');
-tvnsp.on('connection', function(socket){
-  console.log('TVNamespace connected at : ' + socket.id);
-  socket.emit('connected')
-
-  socket.on('change_user', (data) => {
-      // username is in data.user
-      usersockets[data.user] = socket.id
-      console.log(usersockets)
-  })
-  
-  socket.on('send_msg', (data) => {
-
-      if (data.message.startsWith('@')) {
-          //data.message = "@a: hello"
-          // split at :, then remove @ from beginning
-          let recipient = data.message.split(':')[0].substr(1)
-          let rcptSocket = usersockets[recipient]
-          io.to(rcptSocket).emit('recv_msg', data)
-      } else {
-          socket.emit('recv_msg', data)            
-      }
-  })
-});
-
-/* const broadcastnsp = io.of('/')
-broadcastnsp.on('connection', (socket) => {
-  console.log('Broadcast connected')
-  socket.emit('connected')
-}) */
-
 io.on('connection', (socket) => {
-  console.log('Broadcast connected' + socket.id)
   
     socket.emit('connected')
     /* socket.on('disconnect', function(){
@@ -190,6 +82,12 @@ io.on('connection', (socket) => {
         } else {
             io.emit('recv_msg', data)            
         }
+    })
+
+    socket.on('typing', (data) => {
+    	socket.broadcast.emit('typing', {
+        user: data.user
+      })
     })
 
 })

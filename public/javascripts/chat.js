@@ -1,38 +1,31 @@
-let currentChatRoom = $('#currentChatRoom')
+let loginDiv = $('#loginDiv')
+let chatsDiv = $('#chatsDiv')
 let chatBox = $('#showChat')
 let chatFeatures = $('#showFeatures')
 let msgBox = $('#chatInput')
 let sendBtn = $('#chatInputbtn')
-let changeUsername = $('#changeUsername')
-let changeUsernameBtn = $('#changeUsernameBtn')
-let chatroomBtn = $('#chatroomBtn')
-let chatRoomDiv = $('#chatRoomDiv')
-let nsp = ''
+let usernameBox = $('#enterUsernameBox')
+let loginBtn = $('#loginBtn')
 
-function chatroomBtnClick(val) {
+let socket = io('/');
+socket.on('connected', () => {
+    console.log("Connected " + socket.id)
+})
 
-    currentChatRoom.empty()
-    currentChatRoom.append(`${val}`)
-    switch(val) {
-        case 'Broadcast' : 
-            nsp = '/'
-            break;
-        default : 
-            nsp = ('/' + val.toLowerCase())
-    }
+$(function () {
 
     let user = ''
 
-    changeUsernameBtn.click(() => {
-        user = changeUsername.val()
-        socket.emit('change_user', {
+    loginBtn.click(() => {
+        user = usernameBox.val()
+        if(user == '') {
+            user = 'Anonymous'
+        }
+        chatsDiv.show()
+        loginDiv.hide()
+        socket.emit('login', {
             user: user
         })
-    })
-
-    let socket = io(nsp)
-    socket.on('connected', () => {
-        console.log('socket connected ' + val)
     })
 
     sendBtn.click(() => {
@@ -41,26 +34,19 @@ function chatroomBtnClick(val) {
             message: msgBox.val()
         })
     })
+
+    msgBox.bind("keypress", () => {
+		socket.emit('typing', {
+            user: user
+        })
+	})
+
+	socket.on('typing', (data) => {
+        chatFeatures.html(data.user + ' is typing...')
+    })
     
     socket.on('recv_msg', (data) => {
+        chatFeatures.empty()
         chatBox.append($('<li>' + data.user + ': ' + data.message + '</li>'))
     })
-}
-
-
-$(function () {
-
-    let chatRooms = ['Broadcast', 'Books', 'Games', 'TV', 'Movies']
-    chatRoomDiv.empty()
-    for (chatRoom of chatRooms) {
-        console.log(chatRoom)
-        chatRoomDiv.append(`
-        <div class="row m-1">
-            <button id="chatroomBtn" class="btn btn-outline-primary" value="${chatRoom}" onclick=chatroomBtnClick(value)> ${chatRoom} </button>
-        <div>
-        `)
-    }
-
-
-    
 })
