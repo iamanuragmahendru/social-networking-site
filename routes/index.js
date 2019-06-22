@@ -1,5 +1,6 @@
 const route = require('express').Router()
 const User = require('../db').User
+const Feedback = require('../db').Feedback
 const passport = require('../passport')
 
 route.get('/', (req, res) => {
@@ -36,7 +37,7 @@ route.post('/signup', (req, res) => {
     })
   }).catch((err) => {
     console.log(err)
-    res.status(501).send({
+    res.send({
       error: "Could not add new user"
     })
   })
@@ -65,6 +66,18 @@ route.post('/login', (req, res, next) => {
     });
   })(req, res, next);
 });
+
+route.post('/feedback', (req, res) => {
+  Feedback.create({
+    username: req.body.username,
+    feedbackText: req.body.feedback
+  }).then((feedback) => {
+    res.send(`
+      Thanks for the feedback!! <hr> 
+      <a href="/">Go to Main Page</a>
+    `)
+  })
+})
 
 route.get('/login', (req, res) => {
   res.render('Login', {

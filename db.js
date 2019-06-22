@@ -133,6 +133,25 @@ const Follow = sequelize.define('follow', {
   }
 })
 
+// Defining Feedback data model
+
+const Feedback = sequelize.define('feedback', {
+  feedbackId: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
+  username: Sequelize.STRING,
+  feedbackText: Sequelize.TEXT
+})
+
+const Admin = sequelize.define('admin', {
+  adminId: {
+    type: Sequelize.INTEGER,
+    primaryKey: true
+  }
+})
+
 // Association between different data models
 
 User.hasMany(Post)
@@ -170,7 +189,9 @@ module.exports = {
   Comment,
   ProfilePic,
   //Message,
-  Follow
+  Follow,
+  Feedback,
+  Admin
 }
 
 /* To test the connection
