@@ -2,14 +2,26 @@
     <div class="row">
         {{>sidebar}}
         <div class="col-10">
-            <div class="profile">
-                <form action="/api/posts" method="post">
-                    <input type="text" name="newpost" id="newpost" placeholder="Enter something to post">
-                    <button type="submit" class="btn btn-primary">Post</button>
-                </form>
-                <div id="userPosts">
-                    
+            <div class="row">
+                <div class="col">
+                    <h2 class="col text-center">Profile</h1>
                 </div>
+            </div>
+            <div class="profile">
+                <div class="row">
+                    <div class="col-3">
+                        <form action="/api/posts" method="post">
+                            <input type="text" name="newpost" id="newpost" class="form-control input-group"
+                                placeholder="Enter something to post">
+                            <button type="submit" class="btn btn-primary m-1">Post</button>
+                        </form>
+                    </div>
+                    <div id="userPosts" class="col-9">
+
+                    </div>
+                </div>
+
+
             </div>
 
         </div>

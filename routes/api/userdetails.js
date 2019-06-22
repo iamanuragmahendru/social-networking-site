@@ -5,6 +5,9 @@ route.get('/', (req, res) => {
     if (req.user) {
         let id = req.user.uid
         User.findOne({
+            attributes: {
+                exclude: ['password']
+            },
             where: {
                 uid: id
             }

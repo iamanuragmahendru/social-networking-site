@@ -1,5 +1,6 @@
 const route = require('express').Router()
 const Follow = require('../../db').Follow
+const User = require('../../db').User
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -16,7 +17,16 @@ route.get('/', (req, res) => {
                 }
             }
         }).then((followList) => {
-            res.send(followList)
+            let following = []
+            for(follow of followList)
+                following.push(follow.userId)
+            User.findAll({
+                where: {
+                    uid: following
+                }
+            }).then((followDetails) => {
+                res.send(followDetails)
+            }) 
         })
     }
 })

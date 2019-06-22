@@ -12,7 +12,11 @@ $(function () {
         userPosts.empty()
         
         for (post of posts) {
-            userPosts.append(`<b>${post.postText}</b>`)
+            userPosts.append(`
+            <div class="col p-1 m-1 card">
+                ${post.postText} <hr>
+            </div>
+        `)
         }
     })
 
