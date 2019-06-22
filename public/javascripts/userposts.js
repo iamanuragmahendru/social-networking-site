@@ -3,7 +3,7 @@ $(function () {
     let userPosts = $('#userPosts')
 
     function fetchPosts(done) {
-        $.get('/api/posts', (posts) => {
+        $.get('/api/posts/', (posts) => {
             done(posts)
         })
     }

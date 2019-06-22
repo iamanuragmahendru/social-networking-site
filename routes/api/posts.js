@@ -14,6 +14,17 @@ route.get('/', (req, res) => {
     }
 })
 
+route.get('/:id', (req, res) => {
+    let id = req.params.id
+    Post.findAll({
+        where: {
+            userUid: id
+        }
+    }).then((posts) => {
+        res.send(posts)
+    })
+})
+
 route.post('/', (req, res) => {
     if(req.user) {
         let id = req.user.uid

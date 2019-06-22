@@ -31,6 +31,21 @@ route.get('/', (req, res) => {
     }
 })
 
+route.get('/:id', (req, res) => {
+    if(req.user) {
+        let uid = req.user.id
+        let id = req.params.id
+        Follow.findOne({
+            where: {
+                followerId: uid,
+                userId: id
+            }
+        }).then((follow) => {
+            res.send(follow)
+        })
+    }
+})
+
 route.post('/follow', (req, res) => {
     if(req.user) {
         let id = req.user.uid
