@@ -17,6 +17,21 @@ route.get('/', (req, res) => {
     }
 })
 
+route.get('/:id', (req, res) => {
+        let id = req.params.id
+        console.log(id)
+        User.findOne({
+            attributes: {
+                exclude: ['password']
+            },
+            where: {
+                uid: id
+            }
+        }).then((user) => {
+            res.send(user)
+        })
+})
+
 route.post('/', (req, res) => {
     if (req.user) {
         let id = req.user.uid

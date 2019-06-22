@@ -24,8 +24,8 @@ function fetchPosts(done) {
 
 $(function () {  
     fetchProfileAvatar((profileAvatar) => {
-        let profilePic = profileAvatar.profilePicName
-        dp.attr('src', profilePic)
+        let profilePic = profileAvatar.profilePicName 
+        dp.attr("src", "/public/users/profilepics/" + profilePic)
     })
 
     fetchUserDetails((user) => {

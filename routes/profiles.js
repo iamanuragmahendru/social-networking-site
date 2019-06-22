@@ -1,4 +1,5 @@
 const route = require('express').Router()
+const ProfilePic = require('../db').ProfilePic
 
 route.get('/', (req, res) => {
     if (req.user) {
@@ -29,7 +30,7 @@ route.get('/:id', (req, res) => {
                 dp = profilePic.profilePicName
             }
             await res.render('userprofile', {
-                title: firstName + ' ' + lastName + ' - Social Network',
+                title: firstName + ' - Social Network',
                 id: id,
                 layout: 'layoutuserprofile.hbs', 
                 dp: '/public/users/profilepics/' + dp,

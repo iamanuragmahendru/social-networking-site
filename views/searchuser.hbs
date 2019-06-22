@@ -13,9 +13,11 @@
                 </div>
                 <div>
                     {{#each searchResults as |user|}}
+                    <div class="card m-1">
                     {{user.firstName}}
                     {{user.lastName}}
-                    <a href="/profile/{{user.uid}}">Goto Page</a>
+                    <a href="/profiles/{{user.uid}}">Goto Page</a>
+                    </div>
                     {{/each}}
                 </div>
             </div>

@@ -31,8 +31,8 @@ function fetchFollow(done) {
 
 $(function () {  
     fetchProfileAvatar((profileAvatar) => {
-        let profilePic = profileAvatar.profilePicName
-        dp.attr('src', profilePic)
+        let profilePic = profileAvatar.profilePicName 
+        dp.attr("src", "/public/users/profilepics/" + profilePic)
     })
 
     fetchUserDetails((user) => {
@@ -55,10 +55,11 @@ $(function () {
     })
 
     fetchFollow((follow) => {
+        console.log($.isEmptyObject(follow))
         if($.isEmptyObject(follow)) {
-
+            followBtn.html("Follow")
         } else {
-
+            followBtn.html("Unfollow")
         }
     })
 

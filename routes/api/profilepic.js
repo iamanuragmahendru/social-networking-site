@@ -8,6 +8,7 @@ route.get('/:id', (req, res) => {
             userUid: id
         }
     }).then((profilePic) => {
+        console.log(profilePic)
         res.send(profilePic)
     })
 })

@@ -33,7 +33,7 @@ route.get('/', (req, res) => {
 
 route.get('/:id', (req, res) => {
     if(req.user) {
-        let uid = req.user.id
+        let uid = req.user.uid
         let id = req.params.id
         Follow.findOne({
             where: {
