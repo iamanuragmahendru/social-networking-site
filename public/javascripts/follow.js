@@ -17,7 +17,11 @@ $(function () {
             followersDiv.append(`<b>You have no Followers</b>`)
         } else {
             for (follower of followers) {
-                followersDiv.append(`<b>${follower.firstName}</b> <br>`)
+                followersDiv.append(`
+                <div class="card m-1">
+                ${follower.firstName} ${follower.lastName} <br>
+                <a href="/profiles/${follower.uid}">Goto Profile</a>
+                <div>`)
             }
         }
        
@@ -37,7 +41,11 @@ $(function () {
             followingDiv.append(`<b>You have no Following</b>`)
         } else {
             for (following of followList) {
-                followingDiv.append(`<b>${following.firstName}</b> <br>`)
+                followingDiv.append(`
+                <div class="card m-1">
+                ${following.firstName} ${following.lastName} <br>
+                <a href="/profiles/${following.uid}">Goto Profile</a>
+                <div>`)
             }
         }
         

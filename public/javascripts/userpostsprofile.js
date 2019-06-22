@@ -5,6 +5,27 @@ let userPosts = $('#userPosts')
 let followBtn = $('#followBtn')
 let id = window.location.href.split('/').pop()
 
+function followFun(value) {
+    if(value == "Follow") {
+        console.log("follow")
+        $.get('/api/following/follow/' + id, (response) => {
+            if (response == 'Done') {
+                followBtn.attr("value", "Unfollow")
+            } else {
+                alert("Please Try again")
+            }
+        })
+    } else {
+        $.get('/api/following/unfollow/' + id, (response) => {
+            if (response == 'Done') {
+                followBtn.attr("value", "Follow")
+            } else {
+                alert("Please Try again")
+            }
+        })
+    }
+}
+
 function fetchProfileAvatar(done) {
     $.get('/api/profilepic/' + id, (profilePic) => {
         done(profilePic)
@@ -55,11 +76,10 @@ $(function () {
     })
 
     fetchFollow((follow) => {
-        console.log($.isEmptyObject(follow))
         if($.isEmptyObject(follow)) {
-            followBtn.html("Follow")
+            followBtn.attr("value", "Follow")
         } else {
-            followBtn.html("Unfollow")
+            followBtn.attr("value", "Unfollow")
         }
     })
 

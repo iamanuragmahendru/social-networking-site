@@ -46,18 +46,17 @@ route.get('/:id', (req, res) => {
     }
 })
 
-route.post('/follow', (req, res) => {
+route.get('/follow/:id', (req, res) => {
     if(req.user) {
         let id = req.user.uid
         let followerId = id
-        let userId = req.body.userId
+        let userId = req.params.id
         Follow.create({
             followerId: followerId,
             userId: userId
         }).then((follow) => {
             res.send('Done')
         }).catch((err) => {
-            console.log(err)
             res.send('Error')
         })
     }
@@ -66,11 +65,11 @@ route.post('/follow', (req, res) => {
     }
 })
 
-route.post('/unfollow', (req, res) => {
+route.get('/unfollow/:id', (req, res) => {
     if(req.user) {
         let id = req.user.uid
         let followerId = id
-        let userId = req.body.userId
+        let userId = req.params.id
         Follow.destroy({
             where: {
                 followerId: followerId,
