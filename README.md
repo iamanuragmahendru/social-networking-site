@@ -47,6 +47,6 @@ FLUSH PRIVILEGES;
 ```bash
 git clone https://github.com/iamanuragmahendru/social-networking-site
 cd social-networking-site
-npm i
+npm install
 npm start
 ```
