@@ -9,7 +9,7 @@ const http = require('http')
 const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
-const port = 3000
+const PORT = process.env.port || 3000
 
 // Defining the various routes to handle traffic
 
@@ -94,4 +94,4 @@ io.on('connection', (socket) => {
 
 // To start the server and listen at the  given port
 
-server.listen(port, () => console.log(`Social app listening on port ${port}! http://localhost:3000`))
+server.listen(PORT, () => console.log('Social app listening on port ${PORT}! http://localhost:' + PORT))
