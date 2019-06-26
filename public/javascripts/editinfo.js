@@ -3,11 +3,13 @@ $(function () {
     let username = $('#userEmail')
     let firstName = $('#firstName')
     let lastName = $('#lastName')
-    let gender = $('input[name="genderOptions"]')
+    // let gender = $('input[name="genderOptions"]')
     let dob = $('#inputDOB')
     let city = $('#inputCity')
     let state = $('#inputState')
     let pinCode = $('#inputPin')
+
+    // To get details from db and autofill the form
 
     $.get('/api/userdetails', (user) => {
         username.val(user.username)

@@ -11,7 +11,6 @@ $(function () {
 
     fetchFollowersList(function (followers) {
         followersDiv.empty()
-        console.log(followers)
 
         if($.isEmptyObject(followers)) {
             followersDiv.append(`<b>You have no Followers</b>`)
@@ -35,7 +34,6 @@ $(function () {
 
     fetchFollowingList(function (followList) {
         followingDiv.empty()
-        console.log(followList)
 
         if($.isEmptyObject(followList)) {
             followingDiv.append(`<b>You have no Following</b>`)

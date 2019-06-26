@@ -9,6 +9,7 @@ route.get('/', (req, res) => {
         let id = req.user.uid
         Follow.findAll({
             where: {
+                // Checks for tuples where followerId = id and userId != id
                 followerId: id,
                 [Op.and]: {
                     userId : {
@@ -78,7 +79,6 @@ route.get('/unfollow/:id', (req, res) => {
         }).then(() => {
             res.send('Done')
         }).catch((err) => {
-            console.log(err)
             res.send('Error')
         })
     }

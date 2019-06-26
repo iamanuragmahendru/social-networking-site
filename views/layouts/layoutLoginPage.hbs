@@ -12,10 +12,11 @@
 <body>
   {{>navbarLoginPage}}
   {{{body}}}
-  <script src="/public/javascripts/jquery-3.4.1.js"></script>
+  <script src="/public/javascripts/jquery-3.3.1.slim.min.js"></script>
   <script src="/public/javascripts/popper.min.js"></script>
   <script src="/public/javascripts/bootstrap.min.js"></script>
   <script>
+    // Enable Popover
     $(function () {
       $('[data-toggle="popover"]').popover()
     })

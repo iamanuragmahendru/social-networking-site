@@ -9,6 +9,7 @@ route.get('/', (req, res) => {
         let id = req.user.uid
         Follow.findAll({
             where: {
+                // Checks for tuples where userId = id and followerId != id
                 userId: id,
                 [Op.and]: {
                     followerId : {
@@ -20,6 +21,7 @@ route.get('/', (req, res) => {
             let follow = []
             for(follower of followers)
                 follow.push(follower.followerId)
+            // To find details of user
             User.findAll({
                 where: {
                     uid: follow

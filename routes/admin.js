@@ -18,7 +18,6 @@ route.get('/', (req, res) => {
                         feedbackId: {[Op.gt]: 0}
                     }
                 }).then((feedbacks) => {
-                    console.log(feedbacks)
                     res.render('admin', {
                         title: 'Admin',
                         feedback: feedbacks

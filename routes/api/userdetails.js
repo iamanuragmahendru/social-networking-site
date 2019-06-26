@@ -19,7 +19,6 @@ route.get('/', (req, res) => {
 
 route.get('/:id', (req, res) => {
         let id = req.params.id
-        console.log(id)
         User.findOne({
             attributes: {
                 exclude: ['password']

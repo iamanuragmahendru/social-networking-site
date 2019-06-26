@@ -36,7 +36,6 @@ route.post('/signup', (req, res) => {
       username: user.firstName
     })
   }).catch((err) => {
-    console.log(err)
     res.send({
       error: "Could not add new user"
     })
@@ -46,7 +45,6 @@ route.post('/signup', (req, res) => {
 route.post('/login', (req, res, next) => {
   passport.authenticate('local', function (err, user, info) {
     if (err) {
-      console.log(err)
       return next(err)
     }
     if (!user) {
@@ -55,7 +53,6 @@ route.post('/login', (req, res, next) => {
     req.logIn(user, function (err) {
       
       if (err) {
-        console.log(err)
         return next(err)
       }
       // Temporary soln used as req.user always updated to uid 1
@@ -105,7 +102,6 @@ route.post('/forgotpassword', (req, res) => {
     }
   }).then((user) => {
     if (!user) {
-      console.log('No such user')
       res.send(`
         <script>
             alert('No such User')
@@ -118,7 +114,6 @@ route.post('/forgotpassword', (req, res) => {
       </script>
       <a href="/forgotpassword">Go back </a>`)
     } else {
-      console.log('User verified')
       res.send(`
       <script>
           alert('Check your email for new password')
@@ -126,7 +121,6 @@ route.post('/forgotpassword', (req, res) => {
       <a href="/">Go Back to Main Page</a>`)
     }
   }).catch((err) => {
-    console.log(err)
     return done(err)
   })
 })
@@ -137,21 +131,5 @@ route.get('/notauthorised', (req, res) => {
     layout: 'layoutLoginPage'
   })
 })
-
-//TODO
-
-//To implement Remember Me functionality
-
-/* route.post("/login", passport.authenticate('local',
-    { failureRedirect: '/login',
-      failureFlash: true }), function(req, res) {
-        if (req.body.rememberCheck) {
-          req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000; // Cookie expires after 30 days
-        } else {
-          req.session.cookie.expires = false; // Cookie expires at end of session
-        }
-      res.redirect('/loggedin');
-});
- */
 
 module.exports = route;

@@ -97,21 +97,6 @@ const Comment = sequelize.define('comment', {
   }
 })
 
-//TODO
-// Definining data model for messages
-
-/* const Message = sequelize.define('message', {
-  messageId: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-  },
-  messageText: {
-    type: Sequelize.STRING,
-    allowNull: false
-  }
-}) */
-
 // Defining data model for profile pictures
 
 const ProfilePic = sequelize.define('profilePic', {
@@ -145,6 +130,8 @@ const Feedback = sequelize.define('feedback', {
   feedbackText: Sequelize.TEXT
 })
 
+// Data Model for admins
+
 const Admin = sequelize.define('admin', {
   adminId: {
     type: Sequelize.INTEGER,
@@ -169,12 +156,6 @@ User.hasMany(Follow)
 Follow.belongsTo(User, { foreignKey: 'userId' })
 Follow.belongsTo(User, { foreignKey: 'followerId' })
 
-//TODO
-
-/* User.hasMany(Message)
-Message.belongsTo(User, { foreignKey: 'senderId' })
-Message.belongsTo(User, { foreignKey: 'receiverId' }) */
-
 // Synchronize the database
 
 sequelize.sync()
@@ -188,7 +169,6 @@ module.exports = {
   Post,
   Comment,
   ProfilePic,
-  //Message,
   Follow,
   Feedback,
   Admin

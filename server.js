@@ -55,6 +55,8 @@ app.use('/users', userRoute)
 app.use('/profiles', profileRoute)
 app.use('/admin', adminRoute)
 
+// Socket.io Chat
+
 let usersockets = {}
 
 io.on('connection', (socket) => {
@@ -63,7 +65,6 @@ io.on('connection', (socket) => {
     /* socket.on('disconnect', function(){
         console.log('user disconnected');
       }); */
-
     
     socket.on('change_user', (data) => {
         // username is in data.user
@@ -94,4 +95,4 @@ io.on('connection', (socket) => {
 
 // To start the server and listen at the  given port
 
-server.listen(PORT, () => console.log('Social app listening on port ${PORT}! http://localhost:' + PORT))
+server.listen(PORT, () => console.log('Social app listening on : http://localhost:' + PORT))

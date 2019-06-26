@@ -35,7 +35,6 @@ route.post('/', (req, res) => {
         }).then((post) => {
             res.redirect('/users')
         }).catch((err) => {
-            console.log(err)
             res.send('Could not add post')
         })
     }

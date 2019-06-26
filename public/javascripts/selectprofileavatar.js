@@ -7,6 +7,8 @@ $(function() {
         profileAvatar.push("profile_avatar_" + i + ".jpg")
     }
 
+    // IIFE to insert profile avatars in changeAvatarDiv 
+
     (function() {
         changeAvatarDiv.empty()
         for (i = 1; i <= 10; i++) {
@@ -19,5 +21,4 @@ $(function() {
         }
     })()
 
-    
 })
