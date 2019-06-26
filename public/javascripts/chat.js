@@ -19,6 +19,7 @@ $(function () {
     loginBtn.click(() => {
         user = usernameBox.val()
         if(user == '') {
+            // To set username as Anonymous if left empty
             user = 'Anonymous'
         }
         chatsDiv.show()
@@ -35,11 +36,15 @@ $(function () {
         })
     })
 
+    // Binding the msgBox to implement User is typing functionality
+
     msgBox.bind("keypress", () => {
 		socket.emit('typing', {
             user: user
         })
-	})
+    })
+    
+    // Output User is typing in the chatBox 
 
 	socket.on('typing', (data) => {
         chatFeatures.html(data.user + ' is typing...')

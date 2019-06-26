@@ -79,6 +79,11 @@ route.post('/feedback', (req, res) => {
   })
 })
 
+route.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 route.get('/login', (req, res) => {
   res.render('Login', {
     title: 'Social Network',
