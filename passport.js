@@ -28,7 +28,7 @@ passport.use(new LocalStrategy(function (username, password, done) {
       }
   }).then((user) => {
       if (!user) {
-          return done(null, false, {message: "No such user"})
+          return done(null, false, {message: "No such user"});
       }
       if (!user.validPassword(password)) {
         return done(null, false, { message: 'Incorrect password.' });
