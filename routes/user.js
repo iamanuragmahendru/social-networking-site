@@ -1,8 +1,8 @@
-const route = require('express').Router()
-const User = require('../db').User
-const ProfilePic = require('../db').ProfilePic
+const route = require('express').Router();
+const User = require('../db').User;
+const ProfilePic = require('../db').ProfilePic;
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op
+const Op = Sequelize.Op;
 
 route.get('/', (req, res) => {
     if (req.user) {
@@ -10,22 +10,22 @@ route.get('/', (req, res) => {
     } else {
         res.redirect('/notauthorised')
     }
-})
+});
 
 route.get('/:id', (req, res) => {
     if (req.user && (req.user.uid == req.params.id)) {
-        let user = req.user
-        let id = user.uid
-        let firstName = user.firstName
-        let lastName = user.lastName
-        let dp = ''
+        let user = req.user;
+        let id = user.uid;
+        let firstName = user.firstName;
+        let lastName = user.lastName;
+        let dp = '';
         // Definitely not the best way to handleGetReq just wanted to use async and await
         async function handleGetReq(id) {
             let profilePic = await ProfilePic.findOne({
                 where: {
                     userUid: id
                 }
-            })
+            });
             if (!profilePic) {
                 dp = ''
             } else {
@@ -43,27 +43,27 @@ route.get('/:id', (req, res) => {
     } else {
         res.redirect('/notauthorised')
     }
-})
+});
 
 route.get('/:id/searchuser', (req, res) => {
     if (req.user && (req.user.uid == req.params.id)) {
-        let user = req.user
-        let id = user.uid
-        let firstName = user.firstName
-        let dp = ''
-        let query = req.query.search
+        let user = req.user;
+        let id = user.uid;
+        let firstName = user.firstName;
+        let dp = '';
+        let query = req.query.search;
         async function handleGetReq(id) {
-            let searchResults = []
+            let searchResults = [];
             let profilePic = await ProfilePic.findOne({
                 where: {
                     userUid: id
                 }
-            })
+            });
             let searchedUsers = await User.findAll({
                 where: {
                     [Op.or]: [{firstName: query}, {lastName: query}]
                 }
-            })
+            });
             if(!searchedUsers) {
                 searchResults = []
             } else {
@@ -89,21 +89,21 @@ route.get('/:id/searchuser', (req, res) => {
     } else {
         res.redirect('/notauthorised')
     }
-})
+});
 
 route.get('/:id/:link', (req, res) => {
     if (req.user && (req.user.uid == req.params.id)) {
-        let user = req.user
-        let id = user.uid
-        let firstName = user.firstName
-        let dp = ''
-        let link = req.params.link
+        let user = req.user;
+        let id = user.uid;
+        let firstName = user.firstName;
+        let dp = '';
+        let link = req.params.link;
         async function handleGetReq(id) {
             let profilePic = await ProfilePic.findOne({
                 where: {
                     userUid: id
                 }
-            })
+            });
             if (!profilePic) {
                 dp = ''
             } else {
@@ -121,11 +121,11 @@ route.get('/:id/:link', (req, res) => {
     } else {
         res.redirect('/notauthorised')
     }
-})
+});
 
 route.post('/:id/selectedprofileavatar', (req, res) => {
     if(req.user && (req.user.uid == req.params.id)) {
-        let id = req.user.uid
+        let id = req.user.uid;
         ProfilePic.findOrCreate({
             where: {
                 userUid: id,
@@ -150,6 +150,6 @@ route.post('/:id/selectedprofileavatar', (req, res) => {
     } else {
         res.redirect('/notauthorised')
     }
-})
+});
 
-module.exports = route
+module.exports = route;

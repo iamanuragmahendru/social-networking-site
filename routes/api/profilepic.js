@@ -1,8 +1,8 @@
-const route = require('express').Router()
-const ProfilePic = require('../../db').ProfilePic
+const route = require('express').Router();
+const ProfilePic = require('../../db').ProfilePic;
 
 route.get('/:id', (req, res) => {
-    let id = req.params.id
+    let id = req.params.id;
     ProfilePic.findOne({
         where: {
             userUid: id
@@ -10,6 +10,6 @@ route.get('/:id', (req, res) => {
     }).then((profilePic) => {
         res.send(profilePic)
     })
-})
+});
 
-module.exports = route
+module.exports = route;

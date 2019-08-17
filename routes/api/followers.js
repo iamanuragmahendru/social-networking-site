@@ -1,12 +1,12 @@
-const route = require('express').Router()
-const Follow = require('../../db').Follow
-const User = require('../../db').User
+const route = require('express').Router();
+const Follow = require('../../db').Follow;
+const User = require('../../db').User;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 route.get('/', (req, res) => {
     if(req.user) {
-        let id = req.user.uid
+        let id = req.user.uid;
         Follow.findAll({
             where: {
                 // Checks for tuples where userId = id and followerId != id
@@ -18,9 +18,9 @@ route.get('/', (req, res) => {
                 }
             }
         }).then((followers) => {
-            let follow = []
+            let follow = [];
             for(follower of followers)
-                follow.push(follower.followerId)
+                follow.push(follower.followerId);
             // To find details of user
             User.findAll({
                 where: {
@@ -31,6 +31,6 @@ route.get('/', (req, res) => {
             }) 
         })
     }
-})
+});
 
-module.exports = route
+module.exports = route;

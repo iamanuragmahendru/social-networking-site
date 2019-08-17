@@ -1,12 +1,12 @@
-const route = require('express').Router()
-const Admin = require('../db').Admin
-const Feedback = require('../db').Feedback
+const route = require('express').Router();
+const Admin = require('../db').Admin;
+const Feedback = require('../db').Feedback;
 const Sequelize = require('sequelize');
-const Op = Sequelize.Op
+const Op = Sequelize.Op;
 
 route.get('/', (req, res) => {
     if (req.user) {
-        let id = req.user.uid
+        let id = req.user.uid;
         Admin.findOne({
             where: {
                 adminId: id
@@ -31,6 +31,6 @@ route.get('/', (req, res) => {
     } else {
         res.redirect('/notauthorised')
     }
-})
+});
 
-module.exports = route
+module.exports = route;

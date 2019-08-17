@@ -1,8 +1,8 @@
 $(function() {
 
-    let changeAvatarDiv = $('#selectProfileAvatarDiv')
+    let changeAvatarDiv = $('#selectProfileAvatarDiv');
 
-    let profileAvatar = []
+    let profileAvatar = [];
     for (i = 1; i <= 10; i++) {
         profileAvatar.push("profile_avatar_" + i + ".jpg")
     }
@@ -10,7 +10,7 @@ $(function() {
     // IIFE to insert profile avatars in changeAvatarDiv 
 
     (function() {
-        changeAvatarDiv.empty()
+        changeAvatarDiv.empty();
         for (i = 1; i <= 10; i++) {
             changeAvatarDiv.append(`
             <div class="col-2 card p-1 m-1 form-group">
@@ -21,4 +21,4 @@ $(function() {
         }
     })()
 
-})
+});

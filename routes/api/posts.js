@@ -1,9 +1,9 @@
-const route = require('express').Router()
-const Post = require('../../db').Post
+const route = require('express').Router();
+const Post = require('../../db').Post;
 
 route.get('/', (req, res) => {
     if (req.user) {
-        let id = req.user.uid
+        let id = req.user.uid;
         Post.findAll({
             where: {
                 userUid: id
@@ -12,10 +12,10 @@ route.get('/', (req, res) => {
             res.send(posts)
         })
     }
-})
+});
 
 route.get('/:id', (req, res) => {
-    let id = req.params.id
+    let id = req.params.id;
     Post.findAll({
         where: {
             userUid: id
@@ -23,12 +23,12 @@ route.get('/:id', (req, res) => {
     }).then((posts) => {
         res.send(posts)
     })
-})
+});
 
 route.post('/', (req, res) => {
     if(req.user) {
-        let id = req.user.uid
-        post = req.body.newpost
+        let id = req.user.uid;
+        post = req.body.newpost;
         Post.create({
             postText: post,
             userUid: id
@@ -41,6 +41,6 @@ route.post('/', (req, res) => {
     else {
         res.redirect('/notauthorised')
     }
-})
+});
 
-module.exports = route
+module.exports = route;

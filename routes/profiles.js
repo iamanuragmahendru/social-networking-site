@@ -1,5 +1,5 @@
-const route = require('express').Router()
-const ProfilePic = require('../db').ProfilePic
+const route = require('express').Router();
+const ProfilePic = require('../db').ProfilePic;
 
 route.get('/', (req, res) => {
     if (req.user) {
@@ -10,20 +10,20 @@ route.get('/', (req, res) => {
         <a href="/">Go to Main Page</a>
         `)
     }
-})
+});
 
 route.get('/:id', (req, res) => {
     if (req.user) {
-        let user = req.user
-        let id = user.uid
-        let firstName = user.firstName
-        let dp = ''
+        let user = req.user;
+        let id = user.uid;
+        let firstName = user.firstName;
+        let dp = '';
         async function handleGetReq(id) {
             let profilePic = await ProfilePic.findOne({
                 where: {
                     userUid: id
                 }
-            })
+            });
             if (!profilePic) {
                 dp = ''
             } else {
@@ -44,6 +44,6 @@ route.get('/:id', (req, res) => {
             layout: 'layoutprofile.hbs'
         })
     }
-})
+});
 
-module.exports = route
+module.exports = route;

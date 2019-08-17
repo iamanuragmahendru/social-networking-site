@@ -1,7 +1,7 @@
 $(function () {
 
-    let followingDiv = $('#following')
-    let followersDiv = $('#followers')
+    let followingDiv = $('#following');
+    let followersDiv = $('#followers');
 
     function fetchFollowersList(done) {
         $.get('/api/followers', (followers) => {
@@ -10,7 +10,7 @@ $(function () {
     }
 
     fetchFollowersList(function (followers) {
-        followersDiv.empty()
+        followersDiv.empty();
 
         if($.isEmptyObject(followers)) {
             followersDiv.append(`<b>You have no Followers</b>`)
@@ -24,7 +24,7 @@ $(function () {
             }
         }
        
-    })
+    });
 
     function fetchFollowingList(done) {
         $.get('/api/following', (followList) => {
@@ -33,7 +33,7 @@ $(function () {
     }
 
     fetchFollowingList(function (followList) {
-        followingDiv.empty()
+        followingDiv.empty();
 
         if($.isEmptyObject(followList)) {
             followingDiv.append(`<b>You have no Following</b>`)
@@ -49,4 +49,4 @@ $(function () {
         
     })
 
-})
+});

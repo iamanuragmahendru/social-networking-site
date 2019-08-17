@@ -1,10 +1,10 @@
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
-const User = require('./db').User
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const User = require('./db').User;
 
 passport.serializeUser(function (user, done) {
     done(null, user.uid)
-})
+});
 
 passport.deserializeUser(function (userId, done) {
     User.findOne({
@@ -19,7 +19,7 @@ passport.deserializeUser(function (userId, done) {
     }).catch((err) => {
         done(err)
     })
-})
+});
 
 passport.use(new LocalStrategy(function (username, password, done) {
   User.findOne({
@@ -35,9 +35,9 @@ passport.use(new LocalStrategy(function (username, password, done) {
       }
       return done(null, user);
   }).catch((err) => {
-      console.log(err)
+      console.log(err);
       return done(err)
   })
-}))
+}));
 
-module.exports = passport
+module.exports = passport;

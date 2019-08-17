@@ -67,7 +67,7 @@ const User = sequelize.define('user', {
 
 User.prototype.validPassword = function(password) {
   return bcrypt.compareSync(password, this.password);
-}
+};
 
 // Defining data model for posts
 
@@ -81,7 +81,7 @@ postId: {
     type: Sequelize.TEXT,
     allowNull:false
   }
-})
+});
 
 // Defining data model for comments
 
@@ -95,7 +95,7 @@ const Comment = sequelize.define('comment', {
     type: Sequelize.TEXT,
     allowNull: false
   }
-})
+});
 
 // Defining data model for profile pictures
 
@@ -106,7 +106,7 @@ const ProfilePic = sequelize.define('profilePic', {
     primaryKey: true
   },
   profilePicName: Sequelize.STRING
-})
+});
 
 // Defining data model for follow list
 
@@ -116,7 +116,7 @@ const Follow = sequelize.define('follow', {
     autoIncrement: true,
     primaryKey: true
   }
-})
+});
 
 // Defining Feedback data model
 
@@ -128,7 +128,7 @@ const Feedback = sequelize.define('feedback', {
   },
   username: Sequelize.STRING,
   feedbackText: Sequelize.TEXT
-})
+});
 
 // Data Model for admins
 
@@ -137,30 +137,30 @@ const Admin = sequelize.define('admin', {
     type: Sequelize.INTEGER,
     primaryKey: true
   }
-})
+});
 
 // Association between different data models
 
-User.hasMany(Post)
-Post.belongsTo(User)
+User.hasMany(Post);
+Post.belongsTo(User);
 
-User.hasMany(Comment)
-Post.hasMany(Comment)
-Comment.belongsTo(User)
-Comment.belongsTo(Post)
+User.hasMany(Comment);
+Post.hasMany(Comment);
+Comment.belongsTo(User);
+Comment.belongsTo(Post);
 
-User.hasOne(ProfilePic)
-ProfilePic.belongsTo(User)
+User.hasOne(ProfilePic);
+ProfilePic.belongsTo(User);
 
-User.hasMany(Follow)
-Follow.belongsTo(User, { foreignKey: 'userId' })
-Follow.belongsTo(User, { foreignKey: 'followerId' })
+User.hasMany(Follow);
+Follow.belongsTo(User, { foreignKey: 'userId' });
+Follow.belongsTo(User, { foreignKey: 'followerId' });
 
 // Synchronize the database
 
 sequelize.sync()
   .then(() => console.log("Database created"))
-  .catch((err) => console.error(err))
+  .catch((err) => console.error(err));
 
 
 module.exports = {
@@ -172,7 +172,7 @@ module.exports = {
   Follow,
   Feedback,
   Admin
-}
+};
 
 /* To test the connection
 

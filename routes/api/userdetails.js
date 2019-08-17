@@ -1,9 +1,9 @@
-const route = require('express').Router()
-const User = require('../../db').User
+const route = require('express').Router();
+const User = require('../../db').User;
 
 route.get('/', (req, res) => {
     if (req.user) {
-        let id = req.user.uid
+        let id = req.user.uid;
         User.findOne({
             attributes: {
                 exclude: ['password']
@@ -15,10 +15,10 @@ route.get('/', (req, res) => {
             res.send(user)
         })
     }
-})
+});
 
 route.get('/:id', (req, res) => {
-        let id = req.params.id
+        let id = req.params.id;
         User.findOne({
             attributes: {
                 exclude: ['password']
@@ -29,11 +29,11 @@ route.get('/:id', (req, res) => {
         }).then((user) => {
             res.send(user)
         })
-})
+});
 
 route.post('/', (req, res) => {
     if (req.user) {
-        let id = req.user.uid
+        let id = req.user.uid;
         User.update({
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -46,20 +46,20 @@ route.post('/', (req, res) => {
             where: {
                 uid: id
             }
-        })
+        });
         res.send(`
         User Details Updated
         <a href="/users">Go to profile</a>`)
     } else {
         res.redirect('/notauthorised')
     }
-})
+});
 
 route.post('/changepassword', (req, res) => {
     if (req.user) {
-        let id = req.user.uid
-        let oldPassword = req.body.currentPassword
-        let newPassword = req.body.newPassword
+        let id = req.user.uid;
+        let oldPassword = req.body.currentPassword;
+        let newPassword = req.body.newPassword;
         User.findOne({
             where: {
                 uid: id
@@ -82,7 +82,7 @@ route.post('/changepassword', (req, res) => {
                     where: {
                         uid: id
                     }
-                })
+                });
                 res.send(`
                 Password successfully changed <br>
                 <a href="/">Please Login Again</a>
@@ -92,6 +92,6 @@ route.post('/changepassword', (req, res) => {
     } else {
         res.redirect('/notauthorised')
     }
-})
+});
 
-module.exports = route
+module.exports = route;

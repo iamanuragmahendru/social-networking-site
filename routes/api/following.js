@@ -1,12 +1,12 @@
-const route = require('express').Router()
-const Follow = require('../../db').Follow
-const User = require('../../db').User
+const route = require('express').Router();
+const Follow = require('../../db').Follow;
+const User = require('../../db').User;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 route.get('/', (req, res) => {
     if(req.user) {
-        let id = req.user.uid
+        let id = req.user.uid;
         Follow.findAll({
             where: {
                 // Checks for tuples where followerId = id and userId != id
@@ -18,9 +18,9 @@ route.get('/', (req, res) => {
                 }
             }
         }).then((followList) => {
-            let following = []
+            let following = [];
             for(follow of followList)
-                following.push(follow.userId)
+                following.push(follow.userId);
             User.findAll({
                 where: {
                     uid: following
@@ -30,12 +30,12 @@ route.get('/', (req, res) => {
             }) 
         })
     }
-})
+});
 
 route.get('/:id', (req, res) => {
     if(req.user) {
-        let uid = req.user.uid
-        let id = req.params.id
+        let uid = req.user.uid;
+        let id = req.params.id;
         Follow.findOne({
             where: {
                 followerId: uid,
@@ -45,13 +45,13 @@ route.get('/:id', (req, res) => {
             res.send(follow)
         })
     }
-})
+});
 
 route.get('/follow/:id', (req, res) => {
     if(req.user) {
-        let id = req.user.uid
-        let followerId = id
-        let userId = req.params.id
+        let id = req.user.uid;
+        let followerId = id;
+        let userId = req.params.id;
         Follow.create({
             followerId: followerId,
             userId: userId
@@ -64,13 +64,13 @@ route.get('/follow/:id', (req, res) => {
     else {
         res.redirect('/notauthorised')
     }
-})
+});
 
 route.get('/unfollow/:id', (req, res) => {
     if(req.user) {
-        let id = req.user.uid
-        let followerId = id
-        let userId = req.params.id
+        let id = req.user.uid;
+        let followerId = id;
+        let userId = req.params.id;
         Follow.destroy({
             where: {
                 followerId: followerId,
@@ -85,6 +85,6 @@ route.get('/unfollow/:id', (req, res) => {
     else {
         res.redirect('/notauthorised')
     }
-})
+});
 
-module.exports = route
+module.exports = route;

@@ -1,6 +1,6 @@
 $(function () {
 
-    let userPosts = $('#userPosts')
+    let userPosts = $('#userPosts');
 
     function fetchPosts(done) {
         $.get('/api/posts/', (posts) => {
@@ -9,7 +9,7 @@ $(function () {
     }
 
     fetchPosts(function (posts) {
-        userPosts.empty()
+        userPosts.empty();
         
         for (post of posts) {
             userPosts.append(`
@@ -20,4 +20,4 @@ $(function () {
         }
     })
 
-})
+});

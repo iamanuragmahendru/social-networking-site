@@ -1,13 +1,13 @@
-let profileDetails = $('#profileDetails')
-let dp = $('#dp')
-let userPane = $('#userPane')
-let userPosts = $('#userPosts')
-let followBtn = $('#followBtn')
-let id = window.location.href.split('/').pop()
+let profileDetails = $('#profileDetails');
+let dp = $('#dp');
+let userPane = $('#userPane');
+let userPosts = $('#userPosts');
+let followBtn = $('#followBtn');
+let id = window.location.href.split('/').pop();
 
 function followFun(value) {
     if(value == "Follow") {
-        console.log("follow")
+        console.log("follow");
         $.get('/api/following/follow/' + id, (response) => {
             if (response == 'Done') {
                 followBtn.attr("value", "Unfollow")
@@ -52,19 +52,19 @@ function fetchFollow(done) {
 
 $(function () {  
     fetchProfileAvatar((profileAvatar) => {
-        let profilePic = profileAvatar.profilePicName 
+        let profilePic = profileAvatar.profilePicName;
         dp.attr("src", "/public/users/profilepics/" + profilePic)
-    })
+    });
 
     fetchUserDetails((user) => {
         userPane.append(`
         <br>
         ${user.firstName + ' ' + user.lastName}
         `)
-    })
+    });
 
     fetchPosts((posts) => {
-        userPosts.empty()
+        userPosts.empty();
         
         for (post of posts) {
             userPosts.append(`
@@ -73,7 +73,7 @@ $(function () {
             </div>
         `)
         }
-    })
+    });
 
     fetchFollow((follow) => {
         if($.isEmptyObject(follow)) {
@@ -83,4 +83,4 @@ $(function () {
         }
     })
 
-})
+});
