@@ -18,15 +18,15 @@
   },
   "homepage": "https://github.com/iamanuragmahendru/social-networking-site#readme",
   "dependencies": {
-    "bcrypt": "^3.0.6",
-    "cookie-parser": "^1.4.4",
+    "bcrypt": "^3.0.8",
+    "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
-    "express-session": "^1.16.2",
-    "mysql2": "^1.6.5",
-    "passport": "^0.4.0",
+    "express-session": "^1.17.1",
+    "mysql2": "^1.7.0",
+    "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "sequelize": "^5.15.1",
-    "socket.io": "^2.2.0"
+    "sequelize": "^5.22.2",
+    "socket.io": "^2.3.0"
   }
 }
